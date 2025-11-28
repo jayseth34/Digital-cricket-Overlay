@@ -59,8 +59,8 @@
       }
 
       .left-logo img {
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 50%;
         object-fit: cover;
         filter: brightness(1.4) contrast(1.8) saturate(1.5);
         transition: all 0.4s ease-in-out;
@@ -96,7 +96,7 @@
       /* Center RRC Tournament Logo */
       .tournament-logo {
         width: 500px;
-        height: 140px;
+        height: 313px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -104,8 +104,8 @@
       }
       
       .tournament-logo img {
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 50%;
         object-fit: cover;
       }
 
@@ -139,8 +139,8 @@
       }
       
       .right-logo img {
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 50%;
         object-fit: cover;
       }
 
@@ -624,7 +624,7 @@
 
         .tournament-logo {
           width: 350px;
-          height: 120px;
+          height: 313px;
         }
 
         .left-event-logo, .right-event-logo {
@@ -641,7 +641,7 @@
         
         .tournament-logo {
           width: 300px;
-          height: 100px;
+          height: 30px;
         }
 
         .left-event-logo, .right-event-logo {
@@ -756,7 +756,7 @@
         <div class="left-logo">
           <img
             id="leftImage"
-            src="assets/right.png"
+            src="assets/metalmarketbhinmal.jpeg"
             alt="Left Sponsor"
             onerror="this.style.display='none'"
           />
@@ -765,40 +765,25 @@
         <!-- Center Section with 3 logos -->
         <div class="center-logos-section">
           <!-- Left Event Logo -->
-          <div class="left-event-logo">
-            <img
-              id="leftEventLogo"
-              src="assets/eventlogo.png"
-              alt="Event Logo Left"
-              onerror="this.style.display='none'"
-            />
-          </div>
+         
 
           <!-- Center RRC Tournament Logo -->
           <div class="tournament-logo">
             <img
-              src="assets/rrclogo.png"
+              src="assets/metalmarketbhinmallogo.PNG"
               alt="RRC Tournament Logo"
               onerror="this.style.display='none'"
             />
           </div>
 
-          <!-- Right Event Logo -->
-          <div class="right-event-logo">
-            <img
-              id="rightEventLogo"
-              src="assets/eventlogo.png"
-              alt="Event Logo Right"
-              onerror="this.style.display='none'"
-            />
-          </div>
+         
         </div>
 
         <!-- Right Sponsor Logo -->
         <div class="right-logo">
           <img
             id="rightImage"
-            src="assets/left.png"
+            src="assets/metalmarketbhinmal.jpeg"
             alt="Right Sponsor"
             onerror="this.style.display='none'"
           />
@@ -842,7 +827,7 @@
           
           <div class="details-column">
             <div class="info-card">
-              <div class="info-label">Native Place</div>
+              <div class="info-label">Age</div>
               <div class="info-value" id="playerLocation">Loading...</div>
             </div>
             
@@ -852,7 +837,7 @@
             </div>
           </div>
           <div class="info-card current-available-dates">
-              <div class="info-label">Available</div>
+              <div class="info-label">Company</div>
               <div class="info-value" id="availableDates">Loading...</div>
             </div>
           <!-- Current Bid spans both columns -->
@@ -1051,12 +1036,12 @@
           document.getElementById("playerRole").textContent =
             data.role || "Unknown";
           document.getElementById("playerLocation").textContent =
-            data.location || "Unknown";
+            data.age || "Unknown";
           document.getElementById(
             "basePrice"
           ).textContent = `₹${this.formatAmount(data.basePrice || 0)}`;
           document.getElementById("availableDates").textContent =
-            data.availableOnDates || "All Available";
+            data.availableOnDates || "Other";
 
           const playerImg = document.getElementById("playerImage");
           if (data.playerImg) {
