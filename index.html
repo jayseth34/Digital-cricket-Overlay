@@ -746,7 +746,7 @@
   <body>
     <div class="auction-overlay">
       <div class="loading-indicator" id="loadingIndicator">🔄 Loading...</div>
-      <a href="https://ovsoverlaysportyfy.netlify.app/?tournamentId=1" class="overlay-button" id="overlayButton">
+      <a href="https://ovsoverlaysportyfy.netlify.app/?tournamentId=5" class="overlay-button" id="overlayButton">
         &rarr;
       </a>
       
@@ -891,7 +891,7 @@
 
         getTournamentIdFromUrl() {
           const urlParams = new URLSearchParams(window.location.search);
-          return urlParams.get("tournamentId") || "1";
+          return urlParams.get("tournamentId") || "5";
         }
 
         setupOverlayButton() {
