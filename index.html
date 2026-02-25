@@ -1009,65 +1009,47 @@
         }
 
         updateDisplay(data) {
-          document.getElementById("playerName").textContent =
-            (data.playerName || "Unknown Player");
-          
-          // Update player ID
-          document.getElementById("playerIdValue").textContent =
-            data.playerFormId || "N/A";
-            
-          document.getElementById("playerRole").textContent =
-            data.role || "Unknown";
-          document.getElementById("playerLocation").textContent =
-            data.age || "Unknown";
-          document.getElementById(
-            "basePrice"
-          ).textContent = `₹${this.formatAmount(data.basePrice || 0)}`;
-          document.getElementById("availableDates").textContent =
-            data.availableOnDates || "Other";
+  document.getElementById("playerName").textContent =
+    data.playerName || "Unknown Player";
 
-          const playerImg = document.getElementById("playerImage");
-          if (data.playerImg) {
-            playerImg.src = data.playerImg;
-            playerImg.style.display = "block";
-            playerImg.onerror = () => {
-              playerImg.style.display = "none";
-              playerImg.parentElement.innerHTML =
-                '<span style="font-size: 60px; color: #3498db;">👤</span>';
-            };
-          } else {
-            playerImg.parentElement.innerHTML =
-              '<span style="font-size: 60px; color: #3498db;">👤</span>';
-          }
+  document.getElementById("playerIdValue").textContent =
+    data.playerFormId || "N/A";
 
-          const currentBid = data.currentBid || 0;
-          const formattedBid = `₹${this.formatAmount(currentBid)}`;
+  document.getElementById("playerRole").textContent =
+    data.role || "Unknown";
 
-          document.getElementById("currentBidAmount").textContent = formattedBid;
+  // Show Age
+  document.getElementById("playerLocation").textContent =
+    data.age || "Unknown";
 
-          let teamShortText = "No Bids Yet";
-          if (data.currentBidTeamId && data.wallets) {
-            const biddingTeam = data.wallets.find(
-              (wallet) => wallet.teamId === data.currentBidTeamId
-            );
-            if (biddingTeam) {
-              teamShortText = biddingTeam.teamName;
-            }
-          }
+  document.getElementById("basePrice").textContent =
+    `₹${this.formatAmount(data.basePrice || 0)}`;
 
-          document.getElementById("currentBidTeamSide").textContent = teamShortText;
+  // IMAGE
+  const playerImg = document.getElementById("playerImage");
+  if (data.playerImg) {
+    playerImg.src = data.playerImg;
+    playerImg.style.display = "block";
+  }
 
-          if (data.tournImg) {
-            const logo = document.getElementById("tournamentLogo");
-            if (logo) {
-              logo.src = data.tournImg;
-              logo.style.display = "block";
-              if (logo.nextElementSibling) {
-                logo.nextElementSibling.style.display = "none";
-              }
-            }
-          }
-        }
+  // CURRENT BID
+  const currentBid = data.currentBid || 0;
+  document.getElementById("currentBidAmount").textContent =
+    `₹${this.formatAmount(currentBid)}`;
+
+  // CURRENT BID TEAM
+  let teamShortText = "No Bids Yet";
+  if (data.currentBidTeamId && data.wallets) {
+    const biddingTeam = data.wallets.find(
+      wallet => wallet.teamId === data.currentBidTeamId
+    );
+    if (biddingTeam) {
+      teamShortText = biddingTeam.teamName;
+    }
+  }
+
+  document.getElementById("currentBidTeamSide").textContent = teamShortText;
+}
 
         formatAmount(amount) {
           return amount.toLocaleString();
