@@ -746,7 +746,7 @@
   </head>
   <body>
     <div class="auction-overlay">
-      <div class="loading-indicator" id="loadingIndicator">🔄 Loading...</div>
+      <div class="loading-indicator" id="loadingIndicator">Loading...</div>
       <a href="https://ovsoverlaysportyfy.netlify.app/?tournamentId=10" class="overlay-button" id="overlayButton">
         &rarr;
       </a>
@@ -789,10 +789,7 @@
               <img id="playerImage" src="" alt="Player Photo" />
             </div>
             
-            <div class="player-id-display">
-              <div class="player-id-label">Player ID</div>
-              <div class="player-id-value" id="playerIdValue">Loading...</div>
-            </div>
+
           </div>
         </div>
 
@@ -806,7 +803,7 @@
             
             <div class="info-card">
               <div class="info-label">Base Price</div>
-              <div class="info-value" id="basePrice">₹0</div>
+              <div class="info-value" id="basePrice">&#8377;0</div>
             </div>
             
             
@@ -826,7 +823,7 @@
           <!-- Current Bid spans both columns -->
           <div class="info-card current-bid-card">
             <div class="info-label">Current Bid Amount</div>
-            <div class="info-value" id="currentBidAmount">₹0</div>
+            <div class="info-value" id="currentBidAmount">&#8377;0</div>
           </div>
         </div>
       </div>
@@ -1009,47 +1006,56 @@
         }
 
         updateDisplay(data) {
-  document.getElementById("playerName").textContent =
-    data.playerName || "Unknown Player";
+          const rupee = "\u20B9";
+          const playerNameEl = document.getElementById("playerName");
+          if (playerNameEl) {
+            const name =
+              typeof data.playerName === "string" ? data.playerName.trim() : "";
+            playerNameEl.textContent = name || "Unknown Player";
+          }
 
-  document.getElementById("playerIdValue").textContent =
-    data.playerFormId || "N/A";
+          const playerRoleEl = document.getElementById("playerRole");
+          if (playerRoleEl) {
+            const role = typeof data.role === "string" ? data.role.trim() : "";
+            playerRoleEl.textContent = role || "N/A";
+          }
 
-  document.getElementById("playerRole").textContent =
-    data.role || "Unknown";
+          const basePriceEl = document.getElementById("basePrice");
+          if (basePriceEl) {
+            const basePrice = Number(data.basePrice) || 0;
+            basePriceEl.textContent = `${rupee}${this.formatAmount(basePrice)}`;
+          }
 
-  // Show Age
-  document.getElementById("playerLocation").textContent =
-    data.age || "Unknown";
+          const playerImg = document.getElementById("playerImage");
+          if (playerImg) {
+            if (data.playerImg) {
+              playerImg.src = data.playerImg;
+              playerImg.style.display = "block";
+            } else {
+              playerImg.style.display = "none";
+            }
+          }
 
-  document.getElementById("basePrice").textContent =
-    `₹${this.formatAmount(data.basePrice || 0)}`;
+          const currentBidAmountEl = document.getElementById("currentBidAmount");
+          if (currentBidAmountEl) {
+            const currentBid = Number(data.currentBid) || 0;
+            currentBidAmountEl.textContent = `${rupee}${this.formatAmount(
+              currentBid
+            )}`;
+          }
 
-  // IMAGE
-  const playerImg = document.getElementById("playerImage");
-  if (data.playerImg) {
-    playerImg.src = data.playerImg;
-    playerImg.style.display = "block";
-  }
-
-  // CURRENT BID
-  const currentBid = data.currentBid || 0;
-  document.getElementById("currentBidAmount").textContent =
-    `₹${this.formatAmount(currentBid)}`;
-
-  // CURRENT BID TEAM
-  let teamShortText = "No Bids Yet";
-  if (data.currentBidTeamId && data.wallets) {
-    const biddingTeam = data.wallets.find(
-      wallet => wallet.teamId === data.currentBidTeamId
-    );
-    if (biddingTeam) {
-      teamShortText = biddingTeam.teamName;
-    }
-  }
-
-  document.getElementById("currentBidTeamSide").textContent = teamShortText;
-}
+          const currentBidByEl = document.getElementById("currentBidTeamSide");
+          if (currentBidByEl) {
+            let teamText = "No Bids Yet";
+            if (data.currentBidTeamId != null && Array.isArray(data.wallets)) {
+              const biddingTeam = data.wallets.find(
+                (wallet) => wallet.teamId === data.currentBidTeamId
+              );
+              if (biddingTeam?.teamName) teamText = biddingTeam.teamName;
+            }
+            currentBidByEl.textContent = teamText;
+          }
+        }
 
         formatAmount(amount) {
           return amount.toLocaleString();
